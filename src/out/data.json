@@ -1,0 +1,266 @@
+{
+    "project": {},
+    "files": {
+        "dome.js": {
+            "name": "dome.js",
+            "modules": {
+                "dome": 1
+            },
+            "classes": {
+                "Dome": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "dome": {
+            "name": "dome",
+            "submodules": {},
+            "classes": {
+                "Dome": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "dome.js",
+            "line": 19
+        }
+    },
+    "classes": {
+        "Dome": {
+            "name": "Dome",
+            "shortname": "Dome",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "dome",
+            "namespace": "",
+            "file": "dome.js",
+            "line": 19,
+            "description": "包含指定dom元素的包装类",
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "dome.js",
+            "line": 40,
+            "description": "检查Array.prototype.forEach()，提供兼容版本\nJavaScript1.6, ECMAScript 5th",
+            "itemtype": "method",
+            "name": "Array.prototype.forEach",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "对数组每一个元素调用的函数fn(d,i,array)",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "fn调用的this",
+                    "type": "Object"
+                }
+            ],
+            "chainable": 1,
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 61,
+            "description": "检查Array.prototype.map(callback, [,thisArg])，提供兼容版本\nJavaScript1.6 ECMAScript 5th",
+            "itemtype": "method",
+            "name": "Array.prototype.map",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "针对每一个非空元素调用，使用返回值构造新数组，原数组元素为空\n                           对应生成的位置为空",
+                    "type": "Function"
+                },
+                {
+                    "name": "thisArg",
+                    "description": "callback调用上下文",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "返回callback返回元素组成的数组",
+                "type": "Array"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 91,
+            "description": "以多各类扩展第一个类，如果只含一个参数，则扩展调用者，不支持深扩展",
+            "itemtype": "method",
+            "name": "dome.extend",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "需要被扩展的对象，如果只传入一个参数，使用target扩展dome",
+                    "type": "Object"
+                },
+                {
+                    "name": "obj1...objN",
+                    "description": "一个到多个对象，用于对target进行扩展",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "target  返回被扩展的对象",
+                "type": "Object"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 127,
+            "description": "返回包含所有目标元素的Dome对象",
+            "itemtype": "method",
+            "name": ": dome.selectAll",
+            "params": [
+                {
+                    "name": "selector",
+                    "description": "css选择器选择元素",
+                    "type": "String"
+                },
+                {
+                    "name": "selector",
+                    "description": "元素集合",
+                    "type": "Array Like Object"
+                },
+                {
+                    "name": "selector",
+                    "description": "单个元素",
+                    "type": "Element"
+                }
+            ],
+            "return": {
+                "description": "包含目标元素的Dome对象"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 151,
+            "itemtype": "method",
+            "name": "dome.isFunction",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "需要判断是否为函数的对象",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "ture：是函数，false：不是函数",
+                "type": "Boolean"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 160,
+            "itemtype": "method",
+            "name": "dome.isArray",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "需要检查是否为数组的对象",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "true：是数组；false：不是数组",
+                "type": "Boolean"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 169,
+            "description": "判断传入参数是否为类数组：如果对象包含合法length属性，则认为其是类数组对象",
+            "itemtype": "method",
+            "name": "dome.isArrayLike",
+            "params": [
+                {
+                    "name": "o",
+                    "description": "需要检查的对象",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "true：传入对象是类数组对象；false：传入对象不是类数组对象",
+                "type": "Boolean"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 188,
+            "description": "以数组array元素依次调用操作函数fn,scope为fn调用上下文",
+            "itemtype": "method",
+            "name": "dome.forEach",
+            "params": [
+                {
+                    "name": "array",
+                    "description": "需要处理的数组",
+                    "type": "Array"
+                },
+                {
+                    "name": "fn",
+                    "description": "对数组元素调用的操作",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "fn调用上下文",
+                    "type": "Object"
+                }
+            ],
+            "chainable": 1,
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 200,
+            "description": "返回对目标数组元素调用fn得到的返回值组成的数组",
+            "itemtype": "method",
+            "name": "dome.map",
+            "params": [
+                {
+                    "name": "array",
+                    "description": "需要映射的数组",
+                    "type": "Array"
+                },
+                {
+                    "name": "fn",
+                    "description": "对数组元素进行映射的函数",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "fn调用时的上下文",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "映射后生成的数组",
+                "type": "Array"
+            },
+            "class": "Dome",
+            "module": "dome"
+        }
+    ],
+    "warnings": []
+}
