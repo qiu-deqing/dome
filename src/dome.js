@@ -132,21 +132,19 @@
   * @param selector {Element} 单个元素
   * @return 包含目标元素的Dome对象
   **/
-  dome.extend({
-    selectAll: function (selector) {
-      var elements;
-      if (typeof selector === "string") {
-        elements = document.querySelectorAll(selector);
-      } // end if
-      else if (dome.isArrayLike(selector)) {
-        elements = selector;
-      } // end else if
-      else {
-        elements = [selector]
-      } // end else
-      return new Dome(elements);
-    } // end selectAll()
-  });
+  dome.selectAll = function (selector) {
+    var elements;
+    if (typeof selector === "string") {
+      elements = document.querySelectorAll(selector);
+    } // end if
+    else if (dome.isArrayLike(selector)) {
+      elements = selector;
+    } // end else if
+    else {
+      elements = [selector]
+    } // end else
+    return new Dome(elements);
+  } // end selectAll()
   
   /**
   * @method dome.isFunction
@@ -194,7 +192,10 @@
   * @chainable
   **/
   dome.forEach = function (array, fn, scope) {
-    return array.forEach(fn, scope);
+    if (!dome.isArrayLike(array)) {
+      throw TypeError( array + " is not array like");
+    } // end if
+    return Array.prototype.forEach.call(array, fn, scope);
   }; // end forEach()
   
   /**
@@ -206,7 +207,10 @@
   * @return {Array} 映射后生成的数组
   **/
   dome.map = function (array, fn, scope) {
-    return array.map(fn, scope);
+    if (!dome.isArrayLike(array)) {
+      throw TypeError( array + " is not array like");
+    } // end if  
+    return Array.prototype.map.call(array, fn, scope);
   }; // end map()
   
   
@@ -214,6 +218,13 @@
   * 第四部分：定义Dome方法及属性
   **/
   Dome.fn.extend = dome.extend;
+  Dome.fn.map = function (callback, scope) {
+    return Array.prototype.map.call(this, callback, scope);
+  }; // end map()
+  Dome.fn.forEach = function (callback, scope) {
+    this.map(callback, scope);
+    return this;
+  }; // end froEach()
   
   window.dome = dome;
 })(window);
