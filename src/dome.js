@@ -213,18 +213,57 @@
     return Array.prototype.map.call(array, fn, scope);
   }; // end map()
   
+  /**
+  * 创建dom元素，返回新创建元素的Dome类封装
+  * @method dome.create
+  * @param tagName {String} 需要创建的元素标签名（不含<>）
+  * @return {Dome} 返回新创建元素的Dome类封装
+  **/
+  dome.create = function (tagName) {
+    var e = document.createElement(tagName);
+    return new Dome([e]);
+  }; // end create()
   
   /*
   * 第四部分：定义Dome方法及属性
   **/
   Dome.fn.extend = dome.extend;
+  /**
+  * @method Dome.fn.map
+  * @param callback {Function} 以元素为输入，返回对象用于创建新数组
+  * @param scope {Object} callback调用上下文
+  * @return {Array} callback返回对象组成的数组
+  **/
   Dome.fn.map = function (callback, scope) {
     return Array.prototype.map.call(this, callback, scope);
   }; // end map()
+  /**
+  * @method Dome.fn.forEach
+  * @param callback {Function} 以每一个元素作为参数的函数
+  * @param scope {Object} callback调用上下文
+  * @return {Dome} 调用forEach的Dome对象
+  * @chainable
+  **/
   Dome.fn.forEach = function (callback, scope) {
     this.map(callback, scope);
     return this;
   }; // end froEach()
+  /**
+  * 设置Dome内所有元素textContent为参数字符串，如果没有传入参数。返回第一个元素的textContent
+  * @method text
+  * @param newText {String} 需要为所有元素设置的新文本，如果不传入参数，返回第一个元素的文本
+  * @return {String} 不传入参数调用，返回第一个元素的文本
+  **/
+  Dome.fn.text = function (newText) {
+    if (typeof newText !== "undefined") {
+      return this.forEach(function (e) {
+        e.textContent = newText;
+      });
+    } // end if
+    else {
+      return this[0].textContent;
+    } // end else
+  }; // end text()
   
   window.dome = dome;
 })(window);
