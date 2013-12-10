@@ -146,9 +146,35 @@
     else {
       elements = [selector];
     } // end else
+    
     return new Dome(elements);
   } // end selectAll()
-  
+  /**
+  * 返回包含第一个目标元素的Dome对象
+  * @method dome.select
+  * @param selector {string} css选择器选择元素
+  * @param selector {Array Like Object} 元素集合
+  * @param selector {Element} 单个元素
+  * @return 包含目标元素的Dome对象
+  **/
+  dome.select = function (selector) {
+    var element;
+    if (typeof selector === "string") {
+      element = document.querySelector(selector);
+    } // end if
+    else if (dome.isArrayLike(selector)) {
+      element = selector[0];
+    } // end else if
+    else {
+      element = selector;
+    } // end else
+    if (element == null) {
+      return new Dome([]);
+    } // end if
+    else {
+      return new Dome([element]);
+    } // end else
+  }; // end dome.select()
   /**
   * @method dome.isFunction
   * @param obj {Any} 需要判断是否为函数的对象
@@ -352,6 +378,46 @@
       } // end else
     });
   }; // end toggleClass()
+  /**
+  * 在Dome元素的子元素中选择所有满足要求的节点
+  * @method Dome.fn.selectAll
+  * @param selector {string} selector
+  * @return {Dome} 返回满足要求的节点
+  **/
+  Dome.fn.selectAll = function (selector) {
+    var elements = [],
+      e,
+      slice = Array.prototype.slice;
+    if (typeof selector === "string") {
+      this.forEach(function (d) {
+        e = d.querySelectorAll(selector);
+        if (e !== null) {
+          elements.splice(elements.length - 1, 0, slice.call(e));
+        } // end if
+      });
+      return new Dome(elements);
+    } // end if
+  }; // end selectAll()
+  /**
+  * 在Dome元素子元素中选择第一个满足要求的节点
+  * @method Dome.fn.select
+  * @param selector {string} selector
+  * @return {Dome} 返回满足要求的节点
+  **/
+  Dome.fn.select = function (selector) {
+    var elements = [],
+      e;
+    if (typeof selector === "string") {
+      this.forEach(function (d) {
+        e = d.querySelector(selector);
+        if (e !== null) {
+          elements.push(e);
+        } // end if
+      });
+      return new Dome(elements);
+    } // end if
+  }; // end select()
+  
   
   window.dome = dome;
 })(window);
