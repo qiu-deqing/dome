@@ -24,7 +24,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "dome.js",
-            "line": 19
+            "line": 21
         }
     },
     "classes": {
@@ -39,7 +39,7 @@
             "module": "dome",
             "namespace": "",
             "file": "dome.js",
-            "line": 19,
+            "line": 21,
             "description": "包含指定dom元素的包装类",
             "is_constructor": 1
         }
@@ -47,7 +47,7 @@
     "classitems": [
         {
             "file": "dome.js",
-            "line": 40,
+            "line": 42,
             "description": "检查Array.prototype.forEach()，提供兼容版本\nJavaScript1.6, ECMAScript 5th",
             "itemtype": "method",
             "name": "Array.prototype.forEach",
@@ -69,7 +69,7 @@
         },
         {
             "file": "dome.js",
-            "line": 61,
+            "line": 63,
             "description": "检查Array.prototype.map(callback, [,thisArg])，提供兼容版本\nJavaScript1.6 ECMAScript 5th",
             "itemtype": "method",
             "name": "Array.prototype.map",
@@ -94,7 +94,7 @@
         },
         {
             "file": "dome.js",
-            "line": 91,
+            "line": 93,
             "description": "以多各类扩展第一个类，如果只含一个参数，则扩展调用者，不支持深扩展",
             "itemtype": "method",
             "name": "dome.extend",
@@ -119,10 +119,10 @@
         },
         {
             "file": "dome.js",
-            "line": 127,
+            "line": 129,
             "description": "返回包含所有目标元素的Dome对象",
             "itemtype": "method",
-            "name": ": dome.selectAll",
+            "name": "dome.selectAll",
             "params": [
                 {
                     "name": "selector",
@@ -148,7 +148,7 @@
         },
         {
             "file": "dome.js",
-            "line": 151,
+            "line": 152,
             "itemtype": "method",
             "name": "dome.isFunction",
             "params": [
@@ -167,7 +167,7 @@
         },
         {
             "file": "dome.js",
-            "line": 160,
+            "line": 161,
             "itemtype": "method",
             "name": "dome.isArray",
             "params": [
@@ -186,7 +186,7 @@
         },
         {
             "file": "dome.js",
-            "line": 169,
+            "line": 170,
             "description": "判断传入参数是否为类数组：如果对象包含合法length属性，则认为其是类数组对象",
             "itemtype": "method",
             "name": "dome.isArrayLike",
@@ -206,7 +206,7 @@
         },
         {
             "file": "dome.js",
-            "line": 188,
+            "line": 189,
             "description": "以数组array元素依次调用操作函数fn,scope为fn调用上下文",
             "itemtype": "method",
             "name": "dome.forEach",
@@ -233,7 +233,7 @@
         },
         {
             "file": "dome.js",
-            "line": 200,
+            "line": 204,
             "description": "返回对目标数组元素调用fn得到的返回值组成的数组",
             "itemtype": "method",
             "name": "dome.map",
@@ -260,7 +260,179 @@
             },
             "class": "Dome",
             "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 219,
+            "description": "创建dom元素，返回新创建元素的Dome类封装",
+            "itemtype": "method",
+            "name": "dome.create",
+            "params": [
+                {
+                    "name": "tagName",
+                    "description": "需要创建的元素标签名（不含<>）",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "返回新创建元素的Dome类封装",
+                "type": "Dome"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 234,
+            "itemtype": "method",
+            "name": "Dome.fn.map",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "以元素为输入，返回对象用于创建新数组",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "callback调用上下文",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "callback返回对象组成的数组",
+                "type": "Array"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 243,
+            "itemtype": "method",
+            "name": "Dome.fn.forEach",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "以每一个元素作为参数的函数",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "callback调用上下文",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "调用forEach的Dome对象",
+                "type": "Dome"
+            },
+            "chainable": 1,
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 254,
+            "description": "设置Dome内所有元素textContent为参数字符串，如果没有传入参数。返回第一个元素的textContent",
+            "itemtype": "method",
+            "name": "Dome.fn.text",
+            "params": [
+                {
+                    "name": "newText",
+                    "description": "需要为所有元素设置的新文本，如果不传入参数，返回第一个元素的文本",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "不传入参数调用，返回第一个元素的文本",
+                "type": "String"
+            },
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 270,
+            "description": "添加事件监听器",
+            "itemtype": "method",
+            "name": "Dome.fn.addEventListener",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "事件类型",
+                    "type": "String"
+                },
+                {
+                    "name": "fn",
+                    "description": "事件监听器function (event)，context为事件触发对象",
+                    "type": "Function"
+                },
+                {
+                    "name": "capture",
+                    "description": "是否capture",
+                    "type": "Boolean"
+                }
+            ],
+            "chainable": 1,
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 302,
+            "description": "如果元素没有对应class，添加，只支持单个类",
+            "itemtype": "method",
+            "name": "Dome.fn.addClass",
+            "params": [
+                {
+                    "name": "newClass",
+                    "description": "需要添加的类",
+                    "type": "String"
+                }
+            ],
+            "chainable": 1,
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 318,
+            "description": "如果元素有目标class，删除，只支持单个类",
+            "itemtype": "method",
+            "name": "Dome.fn.removeClass",
+            "params": [
+                {
+                    "name": "oldClass",
+                    "description": "需要删除的class",
+                    "type": "String"
+                }
+            ],
+            "chainalbe": "",
+            "class": "Dome",
+            "module": "dome"
+        },
+        {
+            "file": "dome.js",
+            "line": 335,
+            "description": "如果元素没有目标class，添加，如果有，删除，只支持单个类",
+            "itemtype": "method",
+            "name": "Dome.fn.toggleClass",
+            "params": [
+                {
+                    "name": "targetClass",
+                    "description": "需要toggle的类名",
+                    "type": "String"
+                }
+            ],
+            "chainable": 1,
+            "class": "Dome",
+            "module": "dome"
         }
     ],
-    "warnings": []
+    "warnings": [
+        {
+            "message": "unknown tag: chainalbe",
+            "line": " dome.js:318"
+        }
+    ]
 }

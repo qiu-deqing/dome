@@ -14,7 +14,9 @@
   /*
   * 第一部分：定义dome，Dome声明
   **/
-  var dome = {};
+  var dome = {},
+    _undefinedstr = typeof undefined;
+  
 
   /**
   * 包含指定dom元素的包装类
@@ -134,6 +136,7 @@
   **/
   dome.selectAll = function (selector) {
     var elements;
+    
     if (typeof selector === "string") {
       elements = document.querySelectorAll(selector);
     } // end if
@@ -141,7 +144,7 @@
       elements = selector;
     } // end else if
     else {
-      elements = [selector]
+      elements = [selector];
     } // end else
     return new Dome(elements);
   } // end selectAll()
@@ -250,12 +253,12 @@
   }; // end froEach()
   /**
   * 设置Dome内所有元素textContent为参数字符串，如果没有传入参数。返回第一个元素的textContent
-  * @method text
+  * @method Dome.fn.text
   * @param newText {String} 需要为所有元素设置的新文本，如果不传入参数，返回第一个元素的文本
   * @return {String} 不传入参数调用，返回第一个元素的文本
   **/
   Dome.fn.text = function (newText) {
-    if (typeof newText !== "undefined") {
+    if (typeof newText !== _undefinedstr) {
       return this.forEach(function (e) {
         e.textContent = newText;
       });
@@ -264,6 +267,91 @@
       return this[0].textContent;
     } // end else
   }; // end text()
+  /**
+  * 添加事件监听器
+  * @method Dome.fn.addEventListener
+  * @param type {String} 事件类型
+  * @param fn {Function} 事件监听器function (event)，context为事件触发对象
+  * @param capture {boolean} 是否capture
+  * @chainable
+  **/
+  Dome.fn.addEventListener = (function () {
+    if (typeof window.addEventListener !== _undefinedstr) {
+      return function (type, fn, capture) {
+        return this.forEach(function (d, i) {
+          d.addEventListener(type, fn, capture);
+        });
+      };
+    } // end if
+    else {
+      return function (type, fn) {
+        return this.forEach(function (d, i) {
+          d[type] = fn;
+          d["e" + type] = function (evnet) { d[type](event); };
+          d.attachEvent("on" + type, function (event) {
+            event = event || window.event;
+            if (typeof event.target === _undefinedstr) {
+              event.target = event.srcElement;
+            } // end if
+            d["e" + type](event);
+          });
+        });
+      };
+    } // end else
+  }()); // end addEventListener()
+  /**
+  * 如果元素没有对应class，添加，只支持单个类
+  * @method Dome.fn.addClass
+  * @param newClass {String} 需要添加的类
+  * @chainable
+  **/
+  Dome.fn.addClass = function (newClass) {
+    var i, classstr,
+      regexp = new RegExp("\\b" + newClass + "\\b");
+    return this.forEach(function (d) {
+      classstr = d.className;
+      if (classstr.search(regexp) === -1) {
+        d.className =  classstr + " " + newClass;
+      } // end if
+    });
+  }; // end addClass()
+  /**
+  * 如果元素有目标class，删除，只支持单个类
+  * @method Dome.fn.removeClass 
+  * @param oldClass {String} 需要删除的class
+  * @chainalbe
+  **/
+  Dome.fn.removeClass = function (oldClass) {
+    var i,
+      classstr,
+      regexp = new RegExp("\\b" + oldClass + "\\b");
+    return this.forEach(function (d) {
+      classstr = d.className;
+      if (classstr.search(regexp) !== -1) {
+        d.className = classstr.replace(regexp, "");
+      } // end if
+    });
+  }; // end removeClass()
+  /**
+  * 如果元素没有目标class，添加，如果有，删除，只支持单个类
+  * @method Dome.fn.toggleClass
+  * @param targetClass {String} 需要toggle的类名
+  * @chainable
+  **/
+  Dome.fn.toggleClass = function (targetClass) {
+    var i,
+      classstr,
+      regexp = new RegExp("\\b" + targetClass + "\\b");
+    return this.forEach(function (d) {
+      classstr = d.className;
+      if (classstr.search(regexp) === -1) {
+        d.className = classstr + " " + targetClass;
+      } // end if
+      else {
+        d.className = classstr.replace(regexp, "");
+      } // end else
+    });
+  }; // end toggleClass()
   
   window.dome = dome;
 })(window);
