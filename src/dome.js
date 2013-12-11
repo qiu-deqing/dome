@@ -1,5 +1,4 @@
 ﻿/*
-*  跨浏览器的javascript库 dome，调用方法尽量遵循ecma及w3c规范
 *  第一部分定义dome，Dome声明
 *  第二部分定义对ecma及w3c的支持
 *  第三部分定义dome扩展
@@ -252,6 +251,53 @@
     var e = document.createElement(tagName);
     return new Dome([e]);
   }; // end create()
+  /**
+  * 判断传入的dom节点是否包含检测的class
+  * @method dome.hasClass
+  * @param element {Element} 需要检测的dom节点
+  * @param cls {string} 需要检测的类
+  **/
+  dome.hasClass = function (element, cls) {
+    var regexp = new RegExp("\\b" + cls + "\\b");
+    return element.className.search(regexp) !== -1;
+  }; // end hasClass()
+  /**
+  * 给dom节点添加目标类，每次只能传入单个类
+  * @method dome.addClass
+  * @param element {Element} 需要添加class的节点
+  * @param cls {string} 需要添加的class
+  **/
+  dome.addClass = function (element, cls) {
+    if (!dome.hasClass(element, cls)) {
+      element.className = element.className + " " + cls;
+    } // end if
+  }; // end addClass()
+  /**
+  * 给dom节点删除目标类，每次只能传入单个类
+  * @method dome.removeClass
+  * @param element {Element} 需要删除class 的节点
+  * @param cls {string} 需要删除的class
+  **/
+  dome.removeClass = function (element, cls) {
+    var regexp = new RegExp("\\b" + cls + "\\b");
+    if (dome.hasClass(element, cls)) {
+      element.className = element.className.replace(regexp, "");
+    } // end if
+  }; // end removeClass()
+  /**
+  * 给dom节点toggle目标类，每次只能传入一个类
+  * @method dome.toggleClass
+  * @param element {Element} 需要toggle class的节点
+  * @param cls {string} 需要toggle的class
+  **/
+  dome.toggleClass = function (element, cls) {
+    if (dome.hasClass(element, cls)) {
+      dome.removeClass(element, cls);
+    } // end if
+    else {
+      dome.addClass(element, cls);
+    } // end else
+  }; // end toggleClass()
   
   /*
   * 第四部分：定义Dome方法及属性
@@ -392,7 +438,7 @@
       this.forEach(function (d) {
         e = d.querySelectorAll(selector);
         if (e !== null) {
-          elements.splice(elements.length - 1, 0, slice.call(e));
+          elements = elements.concat(slice.call(e));
         } // end if
       });
       return new Dome(elements);
