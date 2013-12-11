@@ -161,7 +161,7 @@
     if (typeof selector === "string") {
       element = document.querySelector(selector);
     } // end if
-    else if (dome.isArrayLike(selector)) {
+    else if (dome.isArray(selector)) {
       element = selector[0];
     } // end else if
     else {
