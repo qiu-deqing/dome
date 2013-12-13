@@ -13,8 +13,10 @@
   /*
   * 第一部分：定义dome，Dome声明
   **/
-  var dome = {},
-    _undefinedstr = typeof undefined;
+  var dome = {};
+  
+  var _undefinedstr = typeof undefined,
+    rclass = /[\t\r\n]/g;
   
 
   /**
@@ -258,8 +260,12 @@
   * @param cls {string} 需要检测的类
   **/
   dome.hasClass = function (element, cls) {
-    var regexp = new RegExp("\\b" + cls + "\\b");
-    return element.className.search(regexp) !== -1;
+    var className = " " + cls + " ";
+    if (element.nodeType === 1 
+      && (" " + element.className + " ").replace(rclass, " ").indexOf(className) >= 0) {
+      return true;
+    } // end if
+    return false;
   }; // end hasClass()
   /**
   * 给dom节点添加目标类，每次只能传入单个类
@@ -268,7 +274,7 @@
   * @param cls {string} 需要添加的class
   **/
   dome.addClass = function (element, cls) {
-    if (!dome.hasClass(element, cls)) {
+    if (element.nodeType === 1) {
       element.className = element.className + " " + cls;
     } // end if
   }; // end addClass()
@@ -279,9 +285,10 @@
   * @param cls {string} 需要删除的class
   **/
   dome.removeClass = function (element, cls) {
-    var regexp = new RegExp("\\b" + cls + "\\b");
-    if (dome.hasClass(element, cls)) {
-      element.className = element.className.replace(regexp, "");
+    var className = " " + element.className + " ";
+    if (element.nodeType === 1) {
+      className = className.replace(new RegExp(" " + cls + " ", "g"), " ");
+      element.className = dome.trim(className);    
     } // end if
   }; // end removeClass()
   /**
@@ -298,6 +305,16 @@
       dome.addClass(element, cls);
     } // end else
   }; // end toggleClass()
+  /**
+  * 去掉字符串前后多余的空白符
+  * @method dome.trim
+  * @param str {string} 需要去掉前后空白符的字符串
+  * @return {string} 去掉空白符后的字符串
+  **/
+  dome.trim = function (str) {
+    return str.replace(/^\s+|\s+$/gm, "");
+  }; // end trim()
+
   
   /*
   * 第四部分：定义Dome方法及属性
@@ -378,13 +395,8 @@
   * @chainable
   **/
   Dome.fn.addClass = function (newClass) {
-    var i, classstr,
-      regexp = new RegExp("\\b" + newClass + "\\b");
     return this.forEach(function (d) {
-      classstr = d.className;
-      if (classstr.search(regexp) === -1) {
-        d.className =  classstr + " " + newClass;
-      } // end if
+      dome.addClass(d, newClass);
     });
   }; // end addClass()
   /**
@@ -394,14 +406,8 @@
   * @chainalbe
   **/
   Dome.fn.removeClass = function (oldClass) {
-    var i,
-      classstr,
-      regexp = new RegExp("\\b" + oldClass + "\\b");
     return this.forEach(function (d) {
-      classstr = d.className;
-      if (classstr.search(regexp) !== -1) {
-        d.className = classstr.replace(regexp, "");
-      } // end if
+      dome.removeClass(d, oldClass);
     });
   }; // end removeClass()
   /**
@@ -411,17 +417,8 @@
   * @chainable
   **/
   Dome.fn.toggleClass = function (targetClass) {
-    var i,
-      classstr,
-      regexp = new RegExp("\\b" + targetClass + "\\b");
     return this.forEach(function (d) {
-      classstr = d.className;
-      if (classstr.search(regexp) === -1) {
-        d.className = classstr + " " + targetClass;
-      } // end if
-      else {
-        d.className = classstr.replace(regexp, "");
-      } // end else
+      dome.toggleClass(d, targetClass);
     });
   }; // end toggleClass()
   /**
