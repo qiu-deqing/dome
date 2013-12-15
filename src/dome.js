@@ -460,7 +460,62 @@
       return new Dome(elements);
     } // end if
   }; // end select()
-  
+  /**
+  * 为Dome元素设置对应属性
+  * @method Dome.fn.setAttribute
+  * @param name {string} 属性名
+  * @param value {string} 属性值
+  * @chainable
+  **/
+  Dome.fn.setAttribute = function (name, value) {
+    var i,
+      len;
+    for (i = 0, len = this.length; i < len; ++i) {
+      this[i].setAttribute(name, value);
+    } // end for
+    return this;
+  }; // end setAttribute()
+  /**
+  * 为Dome元素移除对应属性
+  * @method Dome.fn.removeAttribute
+  * @param name {string} 需要移除的属性名
+  * @param chainable
+  **/
+  Dome.fn.removeAttribute = function (name) {
+    var i,
+      len;
+    for (i = 0, len = this.length; i < len; ++i) {
+      this[i].removeAttribute(name);
+    } // end for
+    return this;
+  }; // end removeAttribute()
+  /**
+  * 测试Dome元素中是否含有对应属性
+  * @method Dome.fn.hasAttribute
+  * @param name {string} 需要检测的属性名
+  * @return {boolean} 如果有任一元素包含此属性返回true，否则false
+  **/
+  Dome.fn.hasAttribute = function (name) {
+    var i,
+      len,
+      isExist = false;
+    for (i = 0, len = this.length; i < len; ++i) {
+      if (this[i].hasAttribute(name)) {
+        isExist = true;
+        break;
+      } // end if
+    } // end for
+    return isExist;
+  }; // end hasAttribute()
+  /**
+  * 返回Dome元素中第一个元素对应属性值
+  * @method Dome.fn.getAttribute
+  * @param name {string} 需要获取的属性名
+  * @return {string} 属性值
+  **/
+  Dome.fn.getAttribute = function (name) {
+    return this[0].getAttribute(name);
+  }; // end getAttribute()
   
   window.dome = dome;
 })(window);
