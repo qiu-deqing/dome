@@ -244,6 +244,45 @@
   }; // end map()
   
   /**
+  * 获取指定窗口滚动条的偏移量
+  * @method dome.getScrollOffsets
+  * @param w {Element} 需要检查滚动条偏移量的元素
+  * @return {Obect} obj.x表示x方向偏移量,obj.y表示y方向偏移量
+  **/
+  dome.getScrollOffsets = function (w) {
+    w = w || window;
+    if (w.pageXOffset != null) {
+      return {x: w.pageXOffset, y: w.pageYOffset};
+    } // end if
+    var d = w.document;
+    if (document.compatMode === "CSS1Compat") {
+      return {x: d.documentElement.scrollLeft, y: d.documentElement.scrollTop};
+    } // end if
+    return {x: d.body.scrollLeft, y: d.body.scrollTop};
+  }; // end getScrollOffsets()
+  
+  /**
+  * 返回指定对象的viewport尺寸
+  * @method dome.getViewportSize
+  * @param w {Element} 需要检测viewport尺寸的对象，如果忽略，将返回当前窗口的尺寸
+  * @return {Object} obj.width 宽度， Obj.height 高度
+  **/
+  dome.getViewportSize = function (w) {
+    w = w || window;
+    if (w.innerWidth != null) {
+      return {width: w.innerWidth, height: w.innerHeight};
+    } // end if
+    var d = w.document;
+    if (document.compatMode === "CSS1Compat") {
+      return {
+        width: d.documentElement.clientWidth,
+        height: d.documentElement.clientHeight
+      };
+    } // end if
+    return {width: d.body.clientWidth, height: d.body.clientHeight};
+  }; // end getViewportSize()
+  
+  /**
   * 创建dom元素，返回新创建元素的Dome类封装
   * @method dome.create
   * @param tagName {String} 需要创建的元素标签名（不含<>）
