@@ -176,6 +176,24 @@
       return new Dome([element]);
     } // end else
   }; // end dome.select()
+  
+  /**
+  * 获取当前页面文档宽度和高度
+  * @method dome.getDocumentRect
+  * @return {Object} height: 文档高度, width：文档宽度
+  **/
+  dome.getDocumentRect = function (){
+    var body = document.body,
+      html = document.documentElement;
+    
+    return {
+      height: Math.max(body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight),
+      width: Math.max(body.scrollWidth, body.offsetWidth,
+        html.clientHeight, html.scrollWidth, html.offsetWidth)
+    };
+  }; // end getDocumentRect()
+  
   /**
   * @method dome.isFunction
   * @param obj {Any} 需要判断是否为函数的对象
